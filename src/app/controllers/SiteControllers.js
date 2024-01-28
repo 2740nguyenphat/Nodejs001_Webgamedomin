@@ -1,11 +1,11 @@
 class SiteControllers {
 	//[GET] /
 	index(req, res) {
-		res.render("home");
+		res.render('home');
 	}
 	//[GET] /search
 	search(req, res) {
-		res.render("search");
+		res.render('search');
 	}
 }
 
