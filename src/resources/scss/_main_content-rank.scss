@@ -1,0 +1,25 @@
+#main_content .rank{
+    margin-top: 20px;
+    width: 80%;
+    font-size: 10px;
+}
+
+#main_content .rank .me-rank-left{
+    display: flex;
+}
+
+#main_content .rank .me-rank-left .your-rank{
+    width: 100px;
+
+    background-color: aquamarine;
+
+}
+
+#main_content .rank .me-rank-left button{
+    margin-left: 10px;
+    width: 100px;
+    height: 20px;
+
+    font-size: 10px;
+    float: right;
+}

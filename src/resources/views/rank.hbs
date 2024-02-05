@@ -1,0 +1,35 @@
+<div class='container rank'>
+	<nav class='me-rank-left'>
+		<p>Your rank:</p>
+		<p class='your-rank'></p>
+		<button class='chose_all ms-auto'>ALL</button>
+		<button class='chose_newbies'>Newbies</button>
+		<button class='chose_normal'>Normal</button>
+		<button class='chose_challenge'>Challenge</button>
+		<button class='chose_demon'>Demon</button>
+	</nav>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th scope='col'>#</th>
+				<th scope='col'>Nick Name</th>
+				<th scope='col'>ID Best Achievement</th>
+				<th scope='col'>Score</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each games}}
+				<tr>
+					<th scope='row'>1</th>
+					<td>{{taikhoan.uName}}</td>
+					<td>f</td>
+					{{#each thanhtich}}
+						{{#if (eq this.score (maxScore ../thanhtich))}}
+							<td>{{this.score}}</td>
+						{{/if}}
+					{{/each}}
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

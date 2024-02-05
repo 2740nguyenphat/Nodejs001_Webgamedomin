@@ -1,5 +1,22 @@
-@import "variables";
+@import 'variables';
 
-h1{
-    color: $red-color;
+
+//body
+@import 'body';
+//main_content
+@import 'main_content';
+
+@import 'main_header';
+@import 'main_char';
+@import 'main_content-rank';
+
+
+
+
+
+
+//menu left
+#left {
+    float: left;
+    width: 10%;
 }

@@ -1,7 +1,8 @@
-const newRoute = require('./news');
 const siteRoute = require('./site');
+const gamesRoute = require('./games');
 function route(app) {
-	app.use('/news', newRoute);
+	app.use('/games', gamesRoute);
+
 	app.use('/', siteRoute);
 }
 module.exports = route;

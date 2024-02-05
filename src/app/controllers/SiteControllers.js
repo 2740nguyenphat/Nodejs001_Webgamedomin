@@ -1,12 +1,13 @@
-const Course = require('../models/courses');
-const {mutipleMongooseToObj} = require('../../util/mongoes');
+const Games = require('../models/games');
+const { mutipleMongooseToObj } = require('../../util/mongoes');
+const { mongooseToObj } = require('../../util/mongoes');
 class SiteControllers {
 	//[GET] /
 	index(req, res, next) {
-		Course.find({})
-			.then((course) => {				
+		Games.find({})
+			.then((games) => {
 				res.render('home', {
-					course: mutipleMongooseToObj(course)
+					games: mutipleMongooseToObj(games),
 				});
 			})
 			.catch(next);
@@ -15,6 +16,18 @@ class SiteControllers {
 	//[GET] /search
 	search(req, res) {
 		res.render('search');
+	}
+
+	//[GET] /rank
+	rank(req, res, next) {
+		Games.find({})
+		.lean()
+			.then((games) =>
+				res.render('rank', {
+					games: games,
+				})
+			)
+			.catch(next);
 	}
 }
 
