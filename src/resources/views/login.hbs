@@ -1,0 +1,73 @@
+<form action="login" method="post" class="login container p-4">
+  <div class="mb-3">
+    <label for="exampleDropdownFormEmail2" class="form-label">Tên đăng nhập</label>
+    <input type="text" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com" name="uname">
+  </div>
+  <div class="mb-3">
+    <label for="FormPassword2" class="form-label">Password</label>
+    <div class="input-group">
+      <input type="password" class="form-control" id="FormPassword2" placeholder="Password" name="upass"
+        aria-describedby="passwordHelpBlock">
+      <div class="input-group-append">
+        <span class="input-group-text" id="togglePassword"><i class="bi bi-eye-slash"></i></span>
+      </div>
+    </div>
+  </div>
+  <article class="mon_ter" id="loadnext">
+    <p id="message">Chào mừng bạn, đây là trang đăng nhập tài khoản!</p>
+  </article>
+  <article class="mon_image">
+    <img src="/img/Blue-Image.png"
+      title="Mình chỉ là đại diện cho web thôi, thằng admin chưa code cho mình thành AI đâu :]]">
+  </article>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#FormPassword2');
+
+  togglePassword.addEventListener('click', function () {
+    // Toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // Toggle the eye slash icon
+    this.querySelector('i').classList.toggle('bi-eye-slash');
+    this.querySelector('i').classList.toggle('bi-eye');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('.login').on('submit', function (e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: '/login',
+        type: 'post',
+        data: $(this).serialize(),
+        success: function (data) {
+          if (data.message === "User login successfully") {
+            const loadnext = document.querySelector('#loadnext');
+            loadnext.innerHTML = '<p id="message">Đăng nhập thành công!</p>'
+            if (data.role === 'admin') {
+              setTimeout(function () {
+                window.location.href = '/admin/account';
+              }, 1000);
+            } else {
+              setTimeout(function () {
+                window.location.href = '/';
+              }, 1000);
+            }
+          }
+          else {
+            $('#message').text(data.message);
+          }
+        },
+        error: function (xhr) {
+          $('#message').text(xhr.responseText);
+        }
+      });
+    });
+  });
+</script>

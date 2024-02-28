@@ -1,0 +1,17 @@
+<div class="container list-shop">
+	<h2>Shop Items</h2>
+	<div class="shop">
+		{{#each items}}
+		<div class="card" style="width: 18rem;">
+
+			<div class="card-body">
+				<h6 class="card-title">{{this.name}}</h6>
+				<img style="width: 90%; height: 20px; margin: 2px;" src="img/items/{{this.fileImage}}.png"
+					class="card-img-top" alt="...">
+				<p class="card-text">{{this.info}}</p>
+			</div>
+			<a style="margin: 5px;" href="#" class="btn btn-success">GET</a>
+		</div>
+		{{/each}}
+	</div>
+</div>

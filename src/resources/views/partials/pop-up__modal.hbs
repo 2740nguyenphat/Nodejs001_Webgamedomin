@@ -1,0 +1,59 @@
+{{#unless user}}
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h4>&emsp;&emsp;&emsp;&emsp;Chào mừng bạn đã đến với <span class="_Miku-color__orange">Smine</span>, trang web
+            chơi game <span class="_Miku-color__orange">Dò Mìn Online</span></h4>
+        <p>&emsp;&emsp;&emsp;Mình là <span class="_Miku-color">_Miku</span>, sẽ đồng hành cùng bạn trong quá trình trãi
+            nghiệm <span class="_Miku-color__orange">Smine</span>.</p>
+        <p>&emsp;&emsp;&emsp;Nói sơ qua về <span class="_Miku-color__orange">Smine</span>, ở đây các bạn có <span
+                class="_Miku-color__red">4 mức độ chơi</span> từ dễ đến khó, các bạn có thể tự mình
+            khám phá.</p>
+        <p>&emsp;&emsp;&emsp;Bạn có thể vào chơi ngay mà <span class="_Miku-color__red">không cần đăng nhập</span>,
+            với những màn chơi <span class="_Miku-color__yellow">chiến thắng</span> bạn có thể lựa chọn lưu
+            vào <span class="_Miku-color__red">"Bảng xếp hạng"</span>, nhưng nếu bạn là một người chơi giỏi bạn sẽ không
+            muốn
+            thành tích
+            tốt
+            nhất của bản thân lại dưới tên <span class="_Miku-color">guest</span> đâu nhỉ.</p>
+        <p>&emsp;&emsp;&emsp;Do đó, bạn có thể <span class="_Miku-color__red">đăng ký tài khoản và đăng nhập</span>, lúc
+            này không chỉ có <span class="_Miku-color">nickname</span> của bạn được hiện
+            trên <span class="_Miku-color__red">"Bảng xếp hạng"</span>
+            không đâu mà bạn có thể sử dụng tính năng <span class="_Miku-color__red">"Shop"</span> nữa.</p>
+        <p>&emsp;&emsp;&emsp;Nhân tiện, nếu bạn chưa biết gì về <span class="_Miku-color__orange">"Dò mìn"</span> thì
+            mình có một <span class="_Miku-color__yellow">"short guide"</span> mình lấy trên
+            mạng đây, đọc
+            vài
+            lần là hiểu ấy mà :3.
+        </p>
+        <p><span class="_Miku-color__red">Chúc bạn chơi game vui vẻ!!!</span></p>
+        <img src="img/huong_dan_domin.png" title="Còn không hiểu thì lên mạng học nha :33">
+        <img class="_Miku" src="img/Hello_Miku.png"
+            title="Mình chỉ là đại diện cho web thôi, thằng admin chưa code cho mình thành AI đâu :]]">
+    </div>
+</div>
+{{/unless}}
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // When the page loads, open the modal 
+    window.onload = function () {
+        modal.style.display = "block";
+    }
+</script>

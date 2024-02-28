@@ -1,5 +1,6 @@
 const Games = require('../models/games');
 const { mutipleMongooseToObj } = require('../../util/mongoes');
+const uuid = require('uuid');
 class GamesControllers {
 	newbies(req, res) {
 		res.render('games/newbies');
@@ -13,17 +14,31 @@ class GamesControllers {
 	demon(req, res) {
 		res.render('games/demon');
 	}
-	store_achievement(req, res, next) {
-		const { timePlay, score } = req.body;
-		const id = '65b8e5c75d2c6d05778bdbcb';
-		const newThanhtich = { timePlay: timePlay, score: score };
-		const games = new Games();
-		Games.findByIdAndUpdate(
-			id,
-			{ $push: { thanhtich: newThanhtich } },
-			{ new: true, upsert: true, useFindAndModify: false }
-		).then(() => res.redirect('/'))
-		.catch((error) => {});
+	async store_achievement(req, res) {
+		const { timePlay, score, title } = req.body;
+		let uname;
+		let role;
+		if (req.session.user && req.session.user.taikhoan) {
+			uname = req.session.user.taikhoan.uname;
+			role = 'user';
+		} else {
+			uname = 'guest-' + uuid.v4(); // Tạo một ID duy nhất cho mỗi phiên 'guest'
+			role = 'guest';
+		}
+		const newThanhtich = { timePlay: timePlay, score: score, title: title };
+		try {
+			await Games.findOneAndUpdate(
+				{ 'taikhoan.uname': uname },
+				{
+					$push: { thanhtich: newThanhtich },
+					$set: { 'taikhoan.role': role },
+				},
+				{ new: true, upsert: true, useFindAndModify: false }
+			);
+			res.redirect('/');
+		} catch (error) {
+			console.log('err', error);
+		}
 	}
 }
 module.exports = new GamesControllers();

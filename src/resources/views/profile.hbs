@@ -1,0 +1,54 @@
+<div class="container profile">
+	<h3>Hồ sơ của {{taikhoan.nickname}}</h3>
+	<p>Tên người dùng: {{taikhoan.uname}}</p>
+	<p>Email: {{taikhoan.email}}</p>
+
+	<h5>Kết quả các màn chơi:</h5>
+	<div class="list-achievement">
+		<table class="table">
+			<thead class="table-primary">
+				<tr>
+					<th scope="col">Loại game:</th>
+					<th scope="col">Thời gian chơi:</th>
+					<th scope="col">Điểm số:</th>
+					<th scope="col">Thời gian ghi:</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each thanhtich as |achievement|}}
+				<tr>
+					<td>{{achievement.title}}</td>
+					<td>{{achievement.timePlay}}</td>
+					<td>{{achievement.score}}</td>
+					<td>{{achievement.formattedDate}}</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+	<h5>Kho items:</h5>
+	<form action="/profile/updateStorage" method="POST" class="list-items">
+		<table class="table">
+			<thead class="table-success">
+				<tr>
+					<th scope="col">Tên items:</th>
+					<th scope="col">Thời gian lấy:</th>
+					<th scope="col">Đang sử dụng:</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each userStorage as |item|}}
+				<tr>
+					<td>{{item.name}}</td>
+					<td>{{item.formattedDate}}</td>
+					<td>
+						<input type="checkbox" id="{{item.name}}" name="{{item.name}}" value="true" {{#if_eq
+							item.isUsed 'true' }}checked{{/if_eq}}>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+		<input class="btn btn-primary" type="submit" value="Lưu">
+	</form>
+</div>

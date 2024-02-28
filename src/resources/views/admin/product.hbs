@@ -1,0 +1,36 @@
+<div class="container login product">
+    <h3>Đăng vật phẩm</h3>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="itemName" class="form-label">Item-name:</label>
+            <input type="text" class="form-control" id="itemName" name="name">
+        </div>
+        <div class="mb-3">
+            <label for="itemInfo" class="form-label">Item-info:</label>
+            <input type="text" class="form-control" id="itemInfo" name="info">
+        </div>
+        <div class="mb-3">
+            <label for="itemImage" class="form-label">Item-image(png or jpg):</label>
+            <input type="file" accept=".png, .jpg" class="form-control" id="itemImage" name="fileName">
+            <img id="preview" src="" alt="Image preview">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('itemImage').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            document.getElementById('preview').src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    });
+</script>

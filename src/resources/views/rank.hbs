@@ -1,35 +1,52 @@
 <div class='container rank'>
 	<nav class='me-rank-left'>
 		<p>Your rank:</p>
-		<p class='your-rank'></p>
-		<button class='chose_all ms-auto'>ALL</button>
-		<button class='chose_newbies'>Newbies</button>
-		<button class='chose_normal'>Normal</button>
-		<button class='chose_challenge'>Challenge</button>
-		<button class='chose_demon'>Demon</button>
+		<p class='your-rank'>{{yourRank}}</p>
+		<a class="ms-auto" href="/rank/newbies">
+			<button class='chose_newbies'>Newbies</button>
+		</a>
+		<a href="/rank/normal">
+			<button class='chose_normal'>Normal</button>
+		</a>
+		<a href="/rank/challenge">
+			<button class='chose_challenge'>Challenge</button>
+		</a>
+		<a href="/rank/demon">
+			<button class='chose_demon'>Demon</button>
+		</a>
 	</nav>
 	<table class='table'>
 		<thead>
 			<tr>
-				<th scope='col'>#</th>
+				<th scope='col'>Rank</th>
 				<th scope='col'>Nick Name</th>
-				<th scope='col'>ID Best Achievement</th>
+				<th scope='col'>Title</th>
 				<th scope='col'>Score</th>
 			</tr>
 		</thead>
 		<tbody>
 			{{#each games}}
-				<tr>
-					<th scope='row'>1</th>
-					<td>{{taikhoan.uName}}</td>
-					<td>f</td>
-					{{#each thanhtich}}
-						{{#if (eq this.score (maxScore ../thanhtich))}}
-							<td>{{this.score}}</td>
-						{{/if}}
-					{{/each}}
-				</tr>
+			<tr>
+				<th scope='row'>{{this.rank}}</th>
+				{{#if taikhoan.nickname}}
+				<td>{{taikhoan.nickname}}</td>
+				{{else}}
+				<td>{{taikhoan.uname}}</td>
+				{{/if}}
+				{{#each thanhtich}}
+				<td>{{this.title}}</td>
+				<td>{{this.score}}</td>
+				{{/each}}
+			</tr>
 			{{/each}}
 		</tbody>
 	</table>
+	<div class="pagination">
+		{{#unless (eq page 1)}}
+		<a href="/rank/{{title}}/{{minus page 1}}">Previous</a>
+		{{/unless}}
+		{{#if (lt page maxPages)}}
+		<a href="/rank/{{title}}/{{plus page 1}}">Next</a>
+		{{/if}}
+	</div>
 </div>

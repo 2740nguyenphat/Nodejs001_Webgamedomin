@@ -1,8 +1,20 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="img/image_miku.jpg" alt="" width="30" height="24" class="avarta">
-      Bootstrap
+    <a class="navbar-brand" href="/">
+      <img src="/img/Logo_mine.png" alt="">
+      SMINE
     </a>
+    {{!-- <a class="navbar-brand" href="/login">Login</a> --}}
+    <article class="login__user">
+      {{#if user}}
+      {{#if_eq user.taikhoan.role 'admin'}}
+      <p>Xin chào admin</p>
+      {{/if_eq}}
+      <p>{{user.taikhoan.nickname}}</p><a class="btn btn-danger" href="/logout">Đăng xuất</a>
+      {{else}}
+      <a class="btn btn-primary" href="/login">Đăng nhập</a>
+      <a class="btn btn-success" href="/register">Đăng ký</a>
+      {{/if}}
+    </article>
   </div>
 </nav>

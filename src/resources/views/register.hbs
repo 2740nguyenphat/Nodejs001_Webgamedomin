@@ -1,0 +1,97 @@
+<form action="register" method="post" class="login container p-4">
+  <div class="mb-3">
+    <label for="username" class="form-label">Username:</label>
+    <input type="text" id="username" name="uname" class="form-control" placeholder="Your Username here" required>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password:</label>
+    <div class="input-group">
+      <input type="password" id="password" name="upass" class="form-control" placeholder="Your Password here" required>
+      <div class="input-group-append">
+        <span class="input-group-text" id="togglePassword"><i class="bi bi-eye-slash"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="confirm_password" class="form-label">Confirm Password:</label>
+    <div class="input-group">
+      <input type="password" id="confirm_password" name="confirm_password" class="form-control"
+        placeholder="Confirm your Password here" required>
+      <div class="input-group-append">
+        <span class="input-group-text" id="togglePassword2"><i class="bi bi-eye-slash"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="nickname" class="form-label">Nickname:</label>
+    <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Your nickname here" required>
+  </div>
+  <div class="mb-3">
+    <label for="exampleDropdownFormEmail2" class="form-label">Email address (optional):</label>
+    <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com"
+      name="email">
+  </div>
+  <article class="mon_ter" id="loadnext">
+    <p id="message">Chào mừng bạn, đây là trang đăng ký tài khoản!</p>
+  </article>
+  <article class="mon_image">
+    <img src="/img/Blue-Image.png"
+      title="Mình chỉ là đại diện cho web thôi, thằng admin chưa code cho mình thành AI đâu :]]">
+  </article>
+  <button type="submit" class="btn btn-primary">Register</button>
+</form>
+<script>
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password');
+
+  togglePassword.addEventListener('click', function () {
+    // Toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // Toggle the eye slash icon
+    this.querySelector('i').classList.toggle('bi-eye-slash');
+    this.querySelector('i').classList.toggle('bi-eye');
+  });
+</script>
+<script>
+  const togglePassword2 = document.querySelector('#togglePassword2');
+  const password2 = document.querySelector('#confirm_password');
+
+  togglePassword2.addEventListener('click', function () {
+    // Toggle the type attribute
+    const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+    password2.setAttribute('type', type);
+    // Toggle the eye slash icon
+    this.querySelector('i').classList.toggle('bi-eye-slash');
+    this.querySelector('i').classList.toggle('bi-eye');
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.login').on('submit', function (e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: '/register',
+        type: 'post',
+        data: $(this).serialize(),
+        success: function (data) {
+          if (data.message === "User created successfully") {
+            const loadnext = document.querySelector('#loadnext');
+            loadnext.innerHTML = '<p id="message">Tạo tài khoản thành công, bạn sẽ được chuyển đến trang đăng nhập trong giây lát!</p> <div class="spinner-border text-primary spinner-border-sm" role="status"><span class="visually-hidden"> Loading...</span></div>'
+            setTimeout(function () {
+              window.location.href = '/login';
+            }, 1000);
+          }
+          else {
+            $('#message').text(data.message);
+          }
+        },
+        error: function (xhr) {
+          $('#message').text(xhr.responseText);
+        }
+      });
+    });
+  });
+</script>

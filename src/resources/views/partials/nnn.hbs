@@ -1,1 +1,36 @@
-<h1>ffff</h1>
+<ul id="messages"></ul>
+<form action="" id="form__chat-all">
+    <input id="m" autocomplete="off" />
+    <button>Gửi</button>
+</form>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- Client -->
+<script>
+    $(function () {
+        var socket = io();
+        $('#form__chat-all').submit(function (e) {
+            e.preventDefault();
+            socket.emit('chat message', $('#m').val(), '{{user.taikhoan.uname}}');
+            $('#m').val('');
+            return false;
+        });
+        socket.on('chat message', function (msg) {
+            //var messageElement = $('<li>').text(msg.text);
+            //if (msg.type === 'system') {
+            //    messageElement.css('font-weight', 'bold');
+            //}
+            //$('#messages').append(messageElement);
+            $('#messages').append($('<li>').text(msg.sender + ': ' + msg.text).css('color', msg.color));
+
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        });
+        socket.on('chat history', function (messages) {
+            messages.forEach(function (msg) {
+                $('#messages').append($('<li>').text(msg.sender + ': ' + msg.message + ' ||time: ' + msg.timestamp).css('color', msg.color));
+            });
+            // Cuộn xuống cuối danh sách tin nhắn
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        });
+    });
+</script>

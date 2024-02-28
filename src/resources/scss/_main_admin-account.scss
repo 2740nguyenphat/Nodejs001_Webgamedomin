@@ -1,0 +1,17 @@
+#main_content .admin {
+    width: 70%;
+    height: 70vh;
+
+    overflow: auto;
+}
+
+#main_content .admin table {
+    font-size: 12px;
+}
+
+#main_content .admin table th {
+    top: -10px;
+    z-index: 2;
+    position: sticky;
+    background-color: white;
+}
