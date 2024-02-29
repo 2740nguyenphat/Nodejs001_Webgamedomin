@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 var morgan = require('morgan');
@@ -11,7 +12,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Khởi tạo server HTTP sử dụng Express
 const server = require('http').createServer(app);
@@ -88,6 +89,8 @@ const db = require('./config/db');
 db.connect();
 //hepler
 const helper = require('./util/helper');
+const { error } = require('console');
+const { promises } = require('dns');
 helper.helpers();
 //session
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -136,10 +139,18 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 
 //route init
 route(app);
+app.use('/login', (req, res, next) => {
+	res.render('login');
+});
 app.use(function (req, res, next) {
 	res.status(404).render('err_404');
 });
 
 server.listen(port, () => {
 	console.log(`App listening on port ${port}`);
+});
+
+process.on('unhandledRejection', (error, promise) => {
+	console.log(`Logged Error: ${error}`);
+	server.close(() => process.exit(1));
 });
