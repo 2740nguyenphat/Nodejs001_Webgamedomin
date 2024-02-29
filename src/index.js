@@ -140,7 +140,7 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 //route init
 route(app);
 app.use('/api/login', (req, res, next) => {
-	return res.status(200).json({ message: 'This not ' });
+	res.render('./resources/login');
 });
 app.use(function (req, res, next) {
 	res.status(404).render('err_404');
