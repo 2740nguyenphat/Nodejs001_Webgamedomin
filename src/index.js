@@ -139,7 +139,7 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 
 //route init
 route(app);
-app.use('/login', (req, res, next) => {
+app.use('/api/login', (req, res, next) => {
 	res.render('login');
 });
 app.use(function (req, res, next) {
