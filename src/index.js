@@ -1,4 +1,3 @@
-require('dotenv').config();
 const path = require('path');
 const express = require('express');
 var morgan = require('morgan');
@@ -12,7 +11,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 // Khởi tạo server HTTP sử dụng Express
 const server = require('http').createServer(app);
@@ -96,7 +95,7 @@ helper.helpers();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const store = new MongoDBStore({
-	uri: 'mongodb://localhost:27017/db_domin_dev',
+	uri: 'mongodb+srv://24nguyenphat00:27072004phatZ@cluster0.7pcqw0h.mongodb.net/db_domin_dev',
 	collection: 'sessions',
 });
 
@@ -139,18 +138,10 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 
 //route init
 route(app);
-app.use('/api/login', (req, res, next) => {
-	res.render('./resources/login');
-});
-app.use(function (req, res, next) {
-	res.status(404).render('err_404');
-});
+// app.use(function (req, res, next) {
+// 	res.status(404).render('err_404');
+// });
 
 server.listen(port, () => {
 	console.log(`App listening on port ${port}`);
-});
-
-process.on('unhandledRejection', (error, promise) => {
-	console.log(`Logged Error: ${error}`);
-	server.close(() => process.exit(1));
 });

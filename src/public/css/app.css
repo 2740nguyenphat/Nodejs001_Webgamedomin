@@ -379,7 +379,7 @@ th {
 #main_content .shop {
   display: flex;
   flex-wrap: wrap;
-  justify-content: sp; }
+  justify-content: space-between; }
 
 #main_content .shop .card {
   margin: 5px 5px;

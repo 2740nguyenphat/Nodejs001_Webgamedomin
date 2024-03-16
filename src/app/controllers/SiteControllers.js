@@ -3,6 +3,7 @@ const Items = require('../models/items');
 const moment = require('moment');
 const { mutipleMongooseToObj } = require('../../util/mongoes');
 const { mongooseToObj } = require('../../util/mongoes');
+const items = require('../models/items');
 class SiteControllers {
 	//[GET] /
 	index(req, res, next) {
@@ -115,19 +116,11 @@ class SiteControllers {
 		if (user) {
 			if (user.thanhtich) {
 				user.thanhtich.forEach((user) => {
-					let createdAt = user.createdAt;
+					let createdAt = user.timeCreat;
 					let date = moment(createdAt);
 					user.formattedDate = date.format('DD-MM-YYYY HH:mm:ss');
 				});
 			}
-			if (user.userStorage) {
-				user.userStorage.forEach((user) => {
-					let createdAt = user.createdAt;
-					let date = moment(createdAt);
-					user.formattedDate = date.format('DD-MM-YYYY HH:mm:ss');
-				});
-			}
-
 			res.render('profile', user);
 		} else {
 			res.status(404).send({ message: 'User not found' });
@@ -140,12 +133,21 @@ class SiteControllers {
 			.lean()
 			.then((items) => {
 				res.render('shop', {
-					items: items
-				})
-			}).catch((err) => {
+					items: items,
+				});
+			})
+			.catch((err) => {
 				console.error(err);
 			});
 	}
+
+	//[POST] /shop/get
+	// async getItems(req, res) {
+	// 	let title = req.params.title;
+	// 	const user = await Games.findOne({
+	// 		'taikhoan.uname': req.session.user.taikhoan.uname,
+	// 	}).lean();
+	// }
 
 	//[POST] /login
 	async chkLogin(req, res) {
